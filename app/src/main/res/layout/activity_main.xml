@@ -10,39 +10,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textViewid"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="20sp" />
+        android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/textViewuserid"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textViewtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textViewbody"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="20sp" />
+        android:visibility="invisible" />
 </LinearLayout>

@@ -6,6 +6,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.arif.retrofit.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,12 +21,16 @@ class MainActivity : AppCompatActivity() {
 
     var postList = ArrayList<Posts>()
 
+    lateinit var adapter : PostAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
 
         showposts()
 
@@ -42,20 +48,17 @@ class MainActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<List<Posts>>{
             override fun onResponse(call: Call<List<Posts>>, response: Response<List<Posts>>) {
-                if(!response.isSuccessful){
-                    binding.textViewid.text="error"
-                    binding.textViewtitle.text="error"
-                    binding.textViewuserid.text="error"
-                    binding.textViewbody.text="error"
+
+                if(response.isSuccessful){
+
+                    binding.progressBar.isVisible=false
+                    binding.recyclerview.isVisible=true
+
+                    postList=response.body() as ArrayList<Posts>
+                    adapter= PostAdapter(postList)
+                    binding.recyclerview.adapter=adapter
 
                 }
-
-                postList=response.body() as ArrayList<Posts>
-
-                binding.textViewid.text=postList[2].id.toString()
-                binding.textViewuserid.text=postList[2].userId.toString()
-                binding.textViewtitle.text=postList[2].title
-                binding.textViewbody.text=postList[2].subtitle
 
             }
 
